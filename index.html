@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="UX/UI 设计师作品集网站框架。">
+  <meta name="theme-color" content="#111111">
+  <meta property="og:title" content="UX/UI 设计师作品集">
+  <meta property="og:description" content="UX/UI 设计师作品集网站框架。">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles/site.css">
+  <link rel="stylesheet" href="styles/reference.css">
+  <link rel="stylesheet" href="styles/layout.css?v=5">
+  <title>UX/UI 设计师作品集</title>
+</head>
+<body>
+  <div data-site-nav></div>
+  <main>
+    <section class="hero container" aria-labelledby="hero-title">
+      <p class="eyebrow">个人作品集 / 2026</p>
+      <h1 id="hero-title">UX/UI<br><em>设计师</em></h1>
+      <div class="hero-bottom">
+        <p class="hero-note">专注于数字产品与体验设计。<br><span class="placeholder">[个人定位文案占位]</span></p>
+        <a class="text-link" href="#selected-works">查看精选作品 <span aria-hidden="true">↓</span></a>
+      </div>
+    </section>
+
+    <section id="selected-works" class="works container" aria-labelledby="works-title">
+      <div class="section-heading"><p class="eyebrow">01 / 精选作品</p><h2 id="works-title">精选作品</h2></div>
+      <div class="project-list" data-project-list></div>
+    </section>
+
+  </main>
+  <div data-site-footer></div>
+  <script src="scripts/projects.js?v=3"></script>
+  <script src="scripts/site.js?v=3"></script>
+</body>
+</html>

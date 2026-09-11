@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="按时间整理的碎片记录。">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../styles/site.css">
+  <link rel="stylesheet" href="../styles/reference.css">
+  <link rel="stylesheet" href="../styles/fragments.css">
+  <link rel="stylesheet" href="../styles/layout.css?v=4">
+  <title>碎片 — 个人作品集</title>
+</head>
+<body data-base="../">
+  <div data-site-nav></div>
+  <main class="fragment-shell" aria-label="碎片工作区">
+    <aside class="fragment-panel fragment-list-panel" aria-labelledby="all-fragments-title">
+      <label class="fragment-search" for="fragment-search-input"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="m16 16 5 5"></path></svg><input id="fragment-search-input" type="search" placeholder="搜索碎片、主题或内容…" aria-label="搜索碎片"><kbd>/</kbd></label>
+      <div class="fragment-list-head"><h1 id="all-fragments-title">全部碎片</h1><button type="button">最近更新⌄</button></div>
+      <div class="fragment-items" id="fragment-items"></div>
+    </aside>
+    <section class="fragment-panel fragment-main-panel" aria-labelledby="week-fragments-title">
+      <header class="fragment-main-head"><div><h1 id="week-fragments-title">本周碎片 <span>/ 2026-W35</span></h1><p>按时间整理的本地记录</p></div><div class="fragment-status"><span>● 本地保存</span><span>⌂ AI 已整理</span><span>⌕ 可用关键词整理</span></div></header>
+      <div class="fragment-timeline" id="fragment-timeline"></div>
+    </section>
+  </main>
+  <div data-site-footer></div>
+  <script src="../scripts/fragments.js?v=1"></script>
+  <script src="../scripts/site.js?v=4"></script>
+</body>
+</html>

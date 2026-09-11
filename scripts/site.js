@@ -1,0 +1,30 @@
+(() => {
+  const root = document.documentElement;
+  const path = window.location.pathname;
+  const base = document.body.dataset.base || (path.includes("/about/") || path.includes("/resume/") ? "../" : "");
+  const isDetail = path.endsWith("project-detail.html");
+  const nav = `<header class="site-nav"><a class="wordmark" href="${base}index.html" aria-label="返回首页">姓名 / <span>作品集</span></a><nav aria-label="主导航"><a data-nav-page="work" href="${base}index.html#selected-works">作品</a><a data-nav-page="fragments" href="${base}fragments/index.html">碎片</a><a data-nav-page="about" href="${base}about/index.html">关于</a><a data-nav-page="resume" href="${base}resume/index.html">简历</a></nav><a class="nav-contact placeholder" href="${base}about/index.html">联系方式 ↗</a></header>`;
+  document.querySelectorAll("[data-site-nav]").forEach(el => el.innerHTML = nav);
+  const activePage = isDetail || (!path.includes("/about/") && !path.includes("/resume/") && !path.includes("/fragments/")) ? "work" : path.includes("/fragments/") ? "fragments" : path.includes("/about/") ? "about" : "resume";
+  document.querySelectorAll("[data-nav-page]").forEach(link => link.classList.toggle("is-active", link.dataset.navPage === activePage));
+  document.querySelectorAll("[data-site-footer]").forEach(el => el.innerHTML = `<footer class="site-footer container"><span>© ${new Date().getFullYear()} / 姓名</span><span class="placeholder">联系方式 / Email / 简历</span></footer>`);
+  const saved = localStorage.getItem("portfolio-theme");
+  if (saved) root.dataset.theme = saved;
+  if (document.querySelector("[data-project-list]")) {
+    document.querySelector("[data-project-list]").innerHTML = window.projects.map((p, i) => `<a class="project-card" href="project-detail.html?id=${p.id}"><div class="project-image"><img src="${p.cover}" alt="${p.title} cover placeholder" loading="${i ? "lazy" : "eager"}"></div><div class="project-meta"><div><p class="eyebrow">${String(i + 1).padStart(2, "0")} / ${p.type}</p><h3>${p.title}</h3><p class="project-subtitle">${p.subtitle}</p></div><span class="project-year">${p.year}</span><span class="view-project">View Project <span aria-hidden="true">↗</span></span></div></a>`).join("");
+  }
+  if (isDetail) renderProject();
+  function renderProject() {
+    const id = new URLSearchParams(location.search).get("id") || window.projects[0].id;
+    const p = window.projects.find(item => item.id === id) || window.projects[0];
+    document.title = `${p.title} — UX/UI Designer Portfolio`;
+    const currentIndex = window.projects.indexOf(p);
+    const previous = window.projects[(currentIndex - 1 + window.projects.length) % window.projects.length];
+    const next = window.projects[(currentIndex + 1) % window.projects.length];
+    const media = type => `<div class="media-placeholder media-${type}"><span>[${type} image placeholder]</span></div>`;
+    document.getElementById("project-detail").innerHTML = `<section class="project-hero container"><p class="eyebrow">${p.type} / ${p.year}</p><h1>${p.title}</h1><p class="project-lede">${p.subtitle}</p><dl class="project-facts"><div><dt>Role</dt><dd>${p.role}</dd></div><div><dt>Timeline</dt><dd>${p.timeline}</dd></div><div><dt>Tools</dt><dd>${p.tools}</dd></div></dl><img class="hero-cover" src="${p.cover}" alt="${p.title} cover placeholder"></section><section class="detail-section container"><p class="eyebrow">01 / OVERVIEW</p><div class="overview-grid"><div><h2>Problem</h2><p>${p.sections.overview.problem}</p></div><div><h2>Goal</h2><p>${p.sections.overview.goal}</p></div><div><h2>My Role</h2><p>${p.sections.overview.role}</p></div></div></section><section class="detail-section detail-split container"><div><p class="eyebrow">02 / RESEARCH</p><h2>Research</h2></div><p>${p.sections.research}</p></section><section class="detail-section container"><p class="eyebrow">03 / DESIGN PROCESS</p><div class="process-list">${p.sections.process.map((item, i) => `<div><span>0${i + 1}</span><h2>${item}</h2><p class="placeholder">[Content placeholder]</p></div>`).join("")}</div></section><section class="detail-section final-design container"><p class="eyebrow">04 / FINAL DESIGN</p><h2>Final Design</h2><div class="media-stack">${p.sections.finalDesign.map(media).join("")}</div></section><section class="detail-section reflection container"><p class="eyebrow">05 / REFLECTION</p><div class="overview-grid"><div><h2>What I Learned</h2><p>${p.sections.reflection.learned}</p></div><div><h2>Next Steps</h2><p>${p.sections.reflection.next}</p></div></div></section><a class="next-project container" href="project-detail.html?id=${next.id}"><span class="eyebrow">NEXT PROJECT</span><strong>${next.title} <span aria-hidden="true">→</span></strong></a>`;
+    const detail = document.getElementById("project-detail");
+    detail.innerHTML = detail.innerHTML.replaceAll("My Role", "我的角色").replaceAll("What I Learned", "我的收获").replaceAll("Next Steps", "下一步").replaceAll("Design Process", "设计流程").replaceAll("Final Design", "最终设计").replaceAll("Information Architecture", "信息架构").replaceAll("User Flow", "用户流程").replaceAll("Wireframes", "线框图").replaceAll("Design Exploration", "设计探索").replaceAll("UI Design", "界面设计").replaceAll("Role", "角色").replaceAll("Timeline", "时间").replaceAll("Tools", "工具").replaceAll("Overview", "概览").replaceAll("Problem", "问题").replaceAll("Goal", "目标").replaceAll("Research", "用户研究").replaceAll("Reflection", "复盘").replaceAll("Content placeholder", "内容占位").replaceAll("image placeholder", "图片占位").replaceAll("Problem placeholder", "问题占位").replaceAll("Goal placeholder", "目标占位").replaceAll("My role placeholder", "我的角色占位").replaceAll("User research, data, and user pain points placeholder", "用户研究、数据和用户痛点占位").replaceAll("What I learned placeholder", "我的收获占位").replaceAll("Next steps placeholder", "下一步占位");
+    detail.insertAdjacentHTML("afterbegin", `<nav class="project-nav container" aria-label="项目导航"><a href="index.html#selected-works">← 返回作品</a><span class="project-nav-pages"><a href="project-detail.html?id=${previous.id}">← ${previous.title}</a><a href="project-detail.html?id=${next.id}">${next.title} →</a></span></nav>`);
+  }
+})();
