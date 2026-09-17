@@ -1,10 +1,7 @@
-/* Desktop artboard reference: 1440 x 900. All dimensions remain fluid below it. */
-:root{--canvas-width:1440px;--canvas-height:900px}
-.site-nav,.hero,.works,.statement,.page,.project-hero,.detail-section,.next-project{width:calc(100% - 96px);max-width:min(var(--canvas-width),100%)}
+/* Shared layout remains fluid; image layers define their own maximum width. */
+:root{--canvas-height:900px;--max:100%}
+.site-nav,.hero,.works,.statement,.page,.project-hero,.detail-section,.next-project{width:100%;max-width:100%}
 .hero{min-height:min(calc(var(--canvas-height) - 70px),calc(100vh - 70px))}
-/* Keep the site-wide canvas at 1440px; the homepage Hero uses the newer
-   1920px desktop reference while remaining fluid below that width. */
-.hero{max-width:min(1920px,100%)}
 .site-nav nav{gap:8px}.site-nav nav a{position:relative;display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:0 14px;border-radius:10px;color:rgba(245,244,242,.86);font-size:16px;font-weight:500;line-height:1;cursor:pointer;transition:color 180ms ease,background-color 180ms ease,transform 180ms ease}.site-nav nav a:first-child{color:rgba(245,244,242,.86)}.site-nav nav a:first-child:after{display:none}.site-nav nav a:hover{color:var(--accent-soft);background:rgba(155,85,255,.12);transform:translateY(-1px)}.site-nav nav a.is-active{color:var(--accent-soft);background:rgba(155,85,255,.13)}.site-nav nav a.is-active:after{content:"";display:block;position:absolute;width:4px;height:4px;border-radius:50%;background:var(--accent);bottom:-9px}
 .site-nav{position:sticky;top:0;background:rgba(5,5,5,.88);backdrop-filter:blur(14px);z-index:20}
 #selected-works{padding-top:32px}
