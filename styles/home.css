@@ -1,16 +1,12 @@
 .home-page{--home-bg:#0d1522;--home-gutter:56px;--home-content:1600px;background:var(--home-bg)}
 .home-page main{width:100%;max-width:none;margin:0}
-.home-page [data-site-nav]{position:absolute;inset:0 0 auto;height:48px;z-index:10;pointer-events:none}
+.home-page [data-site-nav]{position:absolute;inset:0 0 auto;z-index:10;pointer-events:none}
 .home-page [data-site-nav].is-floating{position:fixed}
-.home-page .site-nav{width:min(var(--home-content),100%);max-width:100%;height:48px;margin-inline:auto;padding:0 var(--home-gutter);position:relative;border:0;background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:none;pointer-events:auto;transition:background .25s ease,backdrop-filter .25s ease,box-shadow .25s ease}
+.home-page .site-nav{width:min(var(--home-content),100%);max-width:100%;margin-inline:auto;padding:0 var(--home-gutter);position:relative;border:0;background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:none;pointer-events:auto;transition:background .25s ease,backdrop-filter .25s ease,box-shadow .25s ease}
 .home-page [data-site-nav].is-floating .site-nav{background:rgba(10,16,27,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 8px 24px rgba(0,0,0,.16)}
 .home-page .site-nav .wordmark{display:flex;visibility:visible;align-items:center;gap:12px;font-size:17px;letter-spacing:.02em;font-weight:600}
 .home-page .site-nav .wordmark span{display:inline;color:rgba(245,244,242,.96);font-size:1em;font-weight:600;letter-spacing:0;margin-left:0}
 .home-page .site-nav .wordmark .wordmark-role{color:rgba(245,244,242,.52);font-size:.72em;font-weight:400;letter-spacing:.01em}
-.home-page .site-nav nav{gap:clamp(24px,4vw,64px)}
-.home-page .site-nav nav a{font-size:15px}
-.home-page .site-nav nav a.is-active{color:rgba(245,244,242,.98);background:transparent}
-.home-page .site-nav nav a.is-active:after{display:none}
 .home-page .site-nav .wordmark,.home-page .site-nav .wordmark span,.home-page .site-nav nav a{color:rgba(245,244,242,.96)!important;text-shadow:0 1px 8px rgba(0,0,0,.35)}
 .home-page .site-nav .wordmark .wordmark-role{color:rgba(245,244,242,.6)!important}
 .home-page [data-site-nav].is-floating .site-nav{background:rgba(10,16,27,.3);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 8px 24px rgba(0,0,0,.12)}
@@ -46,8 +42,6 @@
 .home-page .works .project-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
 .home-page .works .project-tags span{padding:3px 8px;border:1px solid rgba(190,201,222,.16);border-radius:999px;color:rgba(205,212,227,.62);font-size:.63rem;line-height:1.2}
 .home-page .works .project-year{display:none}
-.home-page .works .view-project{position:static;grid-column:1/-1;width:auto;height:auto;display:block;margin-top:8px;color:rgba(210,219,239,.74);font-size:.68rem;letter-spacing:.1em;opacity:1;transform:none}
-.home-page .works .view-project span{margin-left:7px;color:rgba(198,211,241,.82)}
 .home-page .site-footer{width:100%;max-width:100%;margin-inline:auto;border-top:1px solid rgba(190,201,222,.12);padding:20px var(--home-gutter) 26px;color:rgba(190,196,207,.62)}
 @media(max-width:800px){.home-page .site-nav,.home-page .works{width:100%;max-width:none}.home-page .site-nav{height:45px;padding-inline:22px}.home-page [data-site-nav]{height:45px}.home-page .site-nav nav{gap:14px}.home-page .site-nav nav a{min-height:32px;padding-inline:8px;font-size:13px}.home-page .site-nav .wordmark{font-size:15px}.home-hero{height:auto;min-height:680px;background-position:center top}.home-hero-inner{padding:66px 22px 30px;align-items:end}.home-hero-kicker{font-size:15px}.home-hero h1{font-size:clamp(56px,16vw,84px)}.home-hero-role{font-size:23px}.home-hero-bio{font-size:15px}.home-hero-bio span{font-size:13px}.home-hero-skills{gap:12px;margin-top:34px}.home-hero-skills span{min-width:56px;font-size:12px}.home-hero-skills b{font-size:24px}.home-hero-mark{min-width:130px;font-size:.62rem}.home-about{grid-template-columns:1fr;gap:28px;padding:56px 22px 64px}.home-about-copy{font-size:15px;padding-top:0}.home-page .works{padding:36px 22px 78px}.home-page .works .section-heading{display:flex;gap:8px 18px;align-items:end}.home-page .works .section-heading h2{font-size:2.25rem}.home-page .works .project-list{grid-template-columns:1fr}.home-page .site-footer{padding-inline:22px}}
 @media(max-width:520px){.home-page .site-nav{padding-inline:16px}.home-page .site-nav .wordmark{font-size:13px}.home-page .site-nav nav{gap:4px}.home-page .site-nav nav a{font-size:12px;padding-inline:5px}}

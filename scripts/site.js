@@ -4,32 +4,48 @@
   const base = document.body.dataset.base || (path.includes("/about/") || path.includes("/resume/") ? "../" : "");
   const isDetail = path.endsWith("project-detail.html");
   const wordmark = `MY PORTFOLIO`;
-  const nav = `<header class="site-nav"><a class="wordmark" href="${base}index.html" aria-label="返回首页">${wordmark}</a><nav aria-label="主导航"><a data-nav-page="home" href="${base}index.html">首页</a><a data-nav-page="work" href="${base}index.html#selected-works">作品</a><a data-nav-page="resume" href="${base}resume/index.html">简历</a></nav></header>`;
+  const navBrand = document.body.classList.contains("home-page") ? `<span class="wordmark-spacer" aria-hidden="true"></span>` : `<a class="wordmark" href="${base}index.html" aria-label="返回首页">${wordmark}</a>`;
+  const nav = `<header class="site-nav">${navBrand}<nav aria-label="主导航"><a data-nav-page="home" href="${base}index.html">首页</a><a data-nav-page="work" href="${base}index.html#selected-works">作品</a><a data-nav-page="resume" href="${base}resume/index.html">简历</a></nav></header>`;
   document.querySelectorAll("[data-site-nav]").forEach(el => el.innerHTML = nav);
-  const activePage = isDetail ? "work" : path.includes("/resume/") ? "resume" : "home";
-  document.querySelectorAll("[data-nav-page]").forEach(link => link.classList.toggle("is-active", link.dataset.navPage === activePage));
+  const setActivePage = activePage => {
+    document.querySelectorAll("[data-nav-page]").forEach(link => {
+      const active = link.dataset.navPage === activePage;
+      link.classList.toggle("is-active", active);
+      if (active) link.setAttribute("aria-current", "page");
+      else link.removeAttribute("aria-current");
+    });
+  };
+  const initialPage = isDetail ? "work" : path.includes("/resume/") ? "resume" : "home";
+  setActivePage(initialPage);
   function renderDetailHeader(previous, next) {
     const backArrow = `<svg class="detail-header__arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M10.5 3.5 6 8l4.5 4.5M6.5 8H14"/></svg>`;
     const forwardArrow = `<svg class="detail-header__arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="m5.5 3.5L10 8l-4.5 4.5M9.5 8H2"/></svg>`;
-    const detailNav = `<header class="detail-header"><div class="detail-header__inner"><a class="detail-header__back" href="index.html#selected-works">${backArrow}<span>返回作品</span></a><nav class="detail-header__main" aria-label="主导航"><a href="index.html">首页</a><a class="is-active" href="index.html#selected-works" aria-current="page">作品</a><a href="resume/index.html">简历</a></nav><nav class="detail-header__pager" aria-label="项目切换"><a href="project-detail.html?id=${previous.id}" aria-label="上一个项目：${previous.title}">${backArrow}<span>${previous.title}</span></a><a href="project-detail.html?id=${next.id}" aria-label="下一个项目：${next.title}"><span>${next.title}</span>${forwardArrow}</a></nav></div></header>`;
+    const detailNav = `<header class="site-nav detail-header"><a class="detail-header__back" href="index.html#selected-works">${backArrow}<span>返回作品</span></a><nav aria-label="主导航"><a data-nav-page="home" href="index.html">首页</a><a data-nav-page="work" class="is-active" href="index.html#selected-works" aria-current="page">作品</a><a data-nav-page="resume" href="resume/index.html">简历</a></nav><nav class="detail-header__pager" aria-label="项目切换"><a href="project-detail.html?id=${previous.id}" aria-label="上一个项目：${previous.title}">${backArrow}<span>${previous.title}</span></a><a href="project-detail.html?id=${next.id}" aria-label="下一个项目：${next.title}"><span>${next.title}</span>${forwardArrow}</a></nav></header>`;
     document.querySelectorAll("[data-site-nav]").forEach(el => el.innerHTML = detailNav);
-    const header = document.querySelector(".detail-header");
-    const syncDetailHeader = () => header.classList.toggle("is-scrolled", window.scrollY > 8);
-    window.addEventListener("scroll", syncDetailHeader, { passive: true });
-    syncDetailHeader();
   }
   if (document.body.classList.contains("home-page")) {
     const navHost = document.querySelector("[data-site-nav]");
     const hero = document.querySelector(".home-hero");
+    const works = document.querySelector("#selected-works");
     const syncFloatingNav = () => navHost.classList.toggle("is-floating", window.scrollY >= hero.offsetTop + hero.offsetHeight - 48);
     window.addEventListener("scroll", syncFloatingNav, { passive: true });
     syncFloatingNav();
+    if (works) {
+      const syncHomeSection = () => {
+        const worksTop = works.getBoundingClientRect().top;
+        const inWorks = worksTop <= window.innerHeight * 0.52;
+        setActivePage(inWorks ? "work" : "home");
+      };
+      window.addEventListener("scroll", syncHomeSection, { passive: true });
+      window.addEventListener("hashchange", syncHomeSection);
+      syncHomeSection();
+    }
   }
   document.querySelectorAll("[data-site-footer]").forEach(el => el.innerHTML = document.body.classList.contains("home-page") ? `<footer class="site-footer container"><span>© 2026 Muyu. All rights reserved.</span><span class="placeholder">Email / 简历</span></footer>` : `<footer class="site-footer container"><span>© ${new Date().getFullYear()} / 姓名</span><span class="placeholder">联系方式 / Email / 简历</span></footer>`);
   const saved = localStorage.getItem("portfolio-theme");
   if (saved) root.dataset.theme = saved;
   if (document.querySelector("[data-project-list]")) {
-    document.querySelector("[data-project-list]").innerHTML = window.projects.map((p, i) => { const homeCopy = { "project-01": { type: "工具产品", subtitle: "为英语学习者设计的沉浸式精听工具，让听力练习更高效、更持续。", tags: ["桌面端", "学习工具", "个人项目"] }, "project-02": { type: "产品改版", subtitle: "重构户外路线发现与决策体验，让用户更快找到适合自己的路线。", tags: ["移动端", "社区产品", "UX 改版"] }, "project-03": { type: "效率工具", subtitle: "随手记录、轻松找回，一个为灵感和思考设计的个人知识收件箱。", tags: ["桌面端", "效率工具", "个人项目"] } }[p.id]; const cover = document.body.classList.contains("home-page") && p.id === "project-01" ? "linguaflow-final-1440.png" : p.cover; const type = homeCopy && document.body.classList.contains("home-page") ? homeCopy.type : p.type; const subtitle = homeCopy && document.body.classList.contains("home-page") ? homeCopy.subtitle : p.subtitle; const tags = homeCopy && document.body.classList.contains("home-page") ? homeCopy.tags.map(tag => `<span>${tag}</span>`).join("") : ""; return `<a class="project-card" href="project-detail.html?id=${p.id}"><div class="project-image"><img src="${cover}" alt="${p.title} 项目封面" loading="${i ? "lazy" : "eager"}"></div><div class="project-meta"><div><p class="eyebrow">${String(i + 1).padStart(2, "0")} / ${type}</p><h3>${p.title}</h3><p class="project-subtitle">${subtitle}</p>${tags ? `<div class="project-tags">${tags}</div>` : ""}</div><span class="project-year">${document.body.classList.contains("home-page") && p.id !== "project-01" ? "待补充" : p.year}</span><span class="view-project">View Project <span aria-hidden="true">↗</span></span></div></a>`; }).join("");
+    document.querySelector("[data-project-list]").innerHTML = window.projects.map((p, i) => { const homeCopy = { "project-01": { type: "工具产品", subtitle: "为英语学习者设计的沉浸式精听工具，让听力练习更高效、更持续。", tags: ["桌面端", "学习工具", "个人项目"] }, "project-02": { type: "产品改版", subtitle: "重构户外路线发现与决策体验，让用户更快找到适合自己的路线。", tags: ["移动端", "社区产品", "UX 改版"] }, "project-03": { type: "效率工具", subtitle: "随手记录、轻松找回，一个为灵感和思考设计的个人知识收件箱。", tags: ["桌面端", "效率工具", "个人项目"] } }[p.id]; const cover = document.body.classList.contains("home-page") && p.id === "project-01" ? "linguaflow-final-1440.png" : p.cover; const type = homeCopy && document.body.classList.contains("home-page") ? homeCopy.type : p.type; const subtitle = homeCopy && document.body.classList.contains("home-page") ? homeCopy.subtitle : p.subtitle; const tags = homeCopy && document.body.classList.contains("home-page") ? homeCopy.tags.map(tag => `<span>${tag}</span>`).join("") : ""; return `<a class="project-card" href="project-detail.html?id=${p.id}"><div class="project-image"><img src="${cover}" alt="${p.title} 项目封面" loading="${i ? "lazy" : "eager"}"></div><div class="project-meta"><div><p class="eyebrow">${String(i + 1).padStart(2, "0")} / ${type}</p><h3>${p.title}</h3><p class="project-subtitle">${subtitle}</p>${tags ? `<div class="project-tags">${tags}</div>` : ""}</div><span class="project-year">${document.body.classList.contains("home-page") && p.id !== "project-01" ? "待补充" : p.year}</span></div></a>`; }).join("");
   }
   if (isDetail) renderProject();
   function renderProject() {

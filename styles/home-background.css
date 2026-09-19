@@ -1,0 +1,11 @@
+.home-page .home-hero {
+  background-image: url("../assets/home-hero-new.png?v=1");
+}
+
+.home-page .home-content-surface {
+  background-image: url("../assets/images/portfolio-hero-bg.png?v=2");
+  background-size: 100% auto;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-color: #07101b;
+}
