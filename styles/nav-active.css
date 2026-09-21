@@ -1,10 +1,8 @@
 /* Shared navigation geometry and active indicator. */
 .site-nav,
-.detail-header,
-.home-page [data-site-nav],
-.home-page .site-nav {
-  height: 52px !important;
-  min-height: 52px !important;
+.detail-header {
+  height: 48px !important;
+  min-height: 48px !important;
 }
 
 .site-nav {
@@ -55,15 +53,14 @@
   white-space: nowrap;
 }
 
-.site-nav nav,
-.home-page .site-nav nav {
+.site-nav nav {
   display: flex;
   gap: 64px !important;
 }
 
 .site-nav nav a {
   position: relative;
-  min-height: 32px !important;
+  min-height: 28px !important;
   padding: 0 14px !important;
   border-radius: 0 !important;
   color: rgba(245, 244, 242, .96) !important;
@@ -93,7 +90,7 @@
 }
 
 .about-page .site-nav {
-  background: rgba(13, 21, 34, .88) !important;
+  background: rgba(13, 21, 34, .68) !important;
 }
 
 .resume-page .site-nav {
@@ -118,4 +115,184 @@
   background: linear-gradient(90deg, #72a9ff, #7f86df);
   box-shadow: 0 0 8px rgba(127, 137, 255, .48);
   transform: translateX(-50%);
+}
+
+/* Project detail mode: restore the full-width top navigation. */
+.project-detail-page .detail-header {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  height: 72px !important;
+  min-height: 72px !important;
+  padding: 0 max(40px, calc((100% - 1536px) / 2 + 40px));
+  background: rgba(248, 251, 253, .82) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  pointer-events: auto;
+}
+
+.project-detail-page .detail-header > nav:first-of-type {
+  position: static;
+  display: flex;
+  gap: 72px !important;
+  transform: none;
+}
+
+.project-detail-page .detail-header__back,
+.project-detail-page .detail-header__pager {
+  position: static;
+  height: 72px;
+  align-items: center;
+}
+
+.project-detail-page .detail-header__back {
+  justify-self: start;
+  color: #263442 !important;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.project-detail-page .detail-header__pager {
+  justify-self: end;
+  display: flex;
+  gap: 80px;
+}
+
+.project-detail-page .detail-header__pager a:first-child {
+  display: inline-flex;
+}
+
+.project-detail-page .detail-header__pager a:last-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #344454 !important;
+  font-size: 16px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.project-detail-page .detail-header__back,
+.project-detail-page .detail-header__pager a {
+  text-shadow: 0 1px 10px rgba(255, 255, 255, .9);
+}
+
+.project-detail-page .case-study-slides {
+  padding-top: 72px;
+}
+
+/* LinguaFlow detail override: compact dark navigation, scoped to project-01 only. */
+.project-detail-page.project-01-detail [data-site-nav] {
+  height: 36px;
+}
+
+.project-detail-page.project-01-detail .detail-header {
+  box-sizing: border-box;
+  display: grid;
+  align-items: stretch;
+  overflow: hidden;
+  height: 36px !important;
+  min-height: 36px !important;
+  padding-inline: max(32px, calc((100% - 1536px) / 2 + 32px));
+  background: rgba(13, 21, 34, .46) !important;
+  backdrop-filter: blur(20px) saturate(1.08);
+  -webkit-backdrop-filter: blur(20px) saturate(1.08);
+}
+
+.project-detail-page.project-01-detail .detail-header__back,
+.project-detail-page.project-01-detail .detail-header__pager,
+.project-detail-page.project-01-detail .detail-header > nav:first-of-type {
+  align-self: stretch;
+  height: 36px !important;
+  min-height: 36px !important;
+}
+
+.project-detail-page.project-01-detail .detail-header > nav:first-of-type {
+  display: flex;
+  align-items: stretch;
+}
+
+.project-detail-page.project-01-detail .detail-header__pager {
+  align-items: center;
+}
+
+.project-detail-page.project-01-detail .detail-header__back,
+.project-detail-page.project-01-detail .detail-header__pager a,
+.project-detail-page.project-01-detail .detail-header > nav:first-of-type a {
+  display: flex;
+  align-items: center;
+  height: 36px !important;
+  min-height: 36px !important;
+  line-height: 1 !important;
+}
+
+.project-detail-page.project-01-detail .detail-header__back,
+.project-detail-page.project-01-detail .detail-header__pager a,
+.project-detail-page.project-01-detail .detail-header > nav:first-of-type a {
+  color: rgba(245, 244, 242, .9) !important;
+  text-shadow: none;
+}
+
+.project-detail-page.project-01-detail .detail-header > nav:first-of-type a.is-active:after {
+  bottom: 4px !important;
+  background: #7f86df;
+  box-shadow: 0 0 8px rgba(127, 137, 255, .48);
+}
+
+.project-detail-page.project-01-detail .case-study-slides {
+  padding-top: 36px;
+}
+
+/* Two-step Road detail override: same compact geometry, cool blue mist palette. */
+.project-detail-page.project-02-detail .detail-header {
+  box-sizing: border-box;
+  display: grid;
+  align-items: stretch;
+  overflow: hidden;
+  height: 36px !important;
+  min-height: 36px !important;
+  padding-inline: max(32px, calc((100% - 1536px) / 2 + 32px));
+  background: rgba(211, 225, 237, .46) !important;
+  backdrop-filter: blur(20px) saturate(1.04);
+  -webkit-backdrop-filter: blur(20px) saturate(1.04);
+}
+
+.project-detail-page.project-02-detail .detail-header__back,
+.project-detail-page.project-02-detail .detail-header__pager,
+.project-detail-page.project-02-detail .detail-header > nav:first-of-type {
+  align-self: stretch;
+  height: 36px !important;
+  min-height: 36px !important;
+}
+
+.project-detail-page.project-02-detail .detail-header > nav:first-of-type {
+  display: flex;
+  align-items: stretch;
+}
+
+.project-detail-page.project-02-detail .detail-header__pager {
+  align-items: center;
+}
+
+.project-detail-page.project-02-detail .detail-header__back,
+.project-detail-page.project-02-detail .detail-header__pager a,
+.project-detail-page.project-02-detail .detail-header > nav:first-of-type a {
+  display: flex;
+  align-items: center;
+  height: 36px !important;
+  min-height: 36px !important;
+  line-height: 1 !important;
+  color: #32495e !important;
+  text-shadow: none;
+}
+
+.project-detail-page.project-02-detail .detail-header > nav:first-of-type a.is-active:after {
+  bottom: 4px !important;
+  background: #6f95ba;
+  box-shadow: 0 0 8px rgba(111, 149, 186, .3);
+}
+
+.project-detail-page.project-02-detail .case-study-slides {
+  padding-top: 36px;
 }

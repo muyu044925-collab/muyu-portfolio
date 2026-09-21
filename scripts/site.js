@@ -18,9 +18,9 @@
   const initialPage = isDetail ? "work" : path.includes("/resume/") ? "resume" : "home";
   setActivePage(initialPage);
   function renderDetailHeader(previous, next) {
-    const backArrow = `<svg class="detail-header__arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M10.5 3.5 6 8l4.5 4.5M6.5 8H14"/></svg>`;
-    const forwardArrow = `<svg class="detail-header__arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="m5.5 3.5L10 8l-4.5 4.5M9.5 8H2"/></svg>`;
-    const detailNav = `<header class="site-nav detail-header"><a class="detail-header__back" href="index.html#selected-works">${backArrow}<span>返回作品</span></a><nav aria-label="主导航"><a data-nav-page="home" href="index.html">首页</a><a data-nav-page="work" class="is-active" href="index.html#selected-works" aria-current="page">作品</a><a data-nav-page="resume" href="resume/index.html">简历</a></nav><nav class="detail-header__pager" aria-label="项目切换"><a href="project-detail.html?id=${previous.id}" aria-label="上一个项目：${previous.title}">${backArrow}<span>${previous.title}</span></a><a href="project-detail.html?id=${next.id}" aria-label="下一个项目：${next.title}"><span>${next.title}</span>${forwardArrow}</a></nav></header>`;
+    const backArrow = `<svg class="detail-header__arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M18 15.5v-4a6 6 0 0 0-6-6H4m0 0 4-4m-4 4 4 4"/></svg>`;
+    const forwardArrow = `<svg class="detail-header__arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="m5.5 3 5 5-5 5"/></svg>`;
+    const detailNav = `<header class="site-nav detail-header"><a class="detail-header__back" href="index.html#selected-works" aria-label="返回项目主页">${backArrow}<span>返回主页</span></a><nav aria-label="主导航"><a data-nav-page="home" href="index.html">首页</a><a data-nav-page="work" class="is-active" href="index.html#selected-works" aria-current="page">作品</a><a data-nav-page="resume" href="resume/index.html">简历</a></nav><nav class="detail-header__pager" aria-label="项目切换"><a href="project-detail.html?id=${next.id}" aria-label="下个项目：${next.title}"><span>下个项目</span>${forwardArrow}</a></nav></header>`;
     document.querySelectorAll("[data-site-nav]").forEach(el => el.innerHTML = detailNav);
   }
   if (document.body.classList.contains("home-page")) {
@@ -31,6 +31,26 @@
     window.addEventListener("scroll", syncFloatingNav, { passive: true });
     syncFloatingNav();
     if (works) {
+      if (location.hash === "#selected-works") {
+        requestAnimationFrame(() => {
+          const previousScrollBehavior = document.documentElement.style.scrollBehavior;
+          document.documentElement.style.scrollBehavior = "auto";
+          window.scrollTo({ top: works.offsetTop, behavior: "auto" });
+          requestAnimationFrame(() => {
+            document.documentElement.style.scrollBehavior = previousScrollBehavior;
+          });
+        });
+      }
+      document.querySelectorAll('[data-nav-page="work"]').forEach(link => {
+        link.addEventListener("click", event => {
+          event.preventDefault();
+          const worksTop = window.scrollY + works.getBoundingClientRect().top;
+          const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+          const target = works.offsetHeight <= window.innerHeight ? maxScroll : Math.min(worksTop, maxScroll);
+          history.replaceState(null, "", "#selected-works");
+          window.scrollTo({ top: target, behavior: "smooth" });
+        });
+      });
       const syncHomeSection = () => {
         const worksTop = works.getBoundingClientRect().top;
         const inWorks = worksTop <= window.innerHeight * 0.52;
@@ -51,6 +71,8 @@
   function renderProject() {
     const id = new URLSearchParams(location.search).get("id") || window.projects[0].id;
     const p = window.projects.find(item => item.id === id) || window.projects[0];
+    document.body.classList.toggle("project-01-detail", p.id === "project-01");
+    document.body.classList.toggle("project-02-detail", p.id === "project-02");
     if (p.caseStudy) {
       renderLinguaFlow(p);
       return;
@@ -60,6 +82,11 @@
     const previous = window.projects[(currentIndex - 1 + window.projects.length) % window.projects.length];
     const next = window.projects[(currentIndex + 1) % window.projects.length];
     renderDetailHeader(previous, next);
+    if (p.detailImages?.length) {
+      const slideMarkup = p.detailImages.map((src, i) => `<figure class="case-study-slide"><img src="${src}" alt="${p.title}详情页第 ${i + 1} 页" loading="${i ? "lazy" : "eager"}"></figure>`).join("");
+      document.getElementById("project-detail").innerHTML = `<section class="case-study-slides" aria-label="${p.title}项目详情">${slideMarkup}</section>`;
+      return;
+    }
     const media = type => `<div class="media-placeholder media-${type}"><span>[${type} image placeholder]</span></div>`;
     document.getElementById("project-detail").innerHTML = `<section class="project-hero container"><p class="eyebrow">${p.type} / ${p.year}</p><h1>${p.title}</h1><p class="project-lede">${p.subtitle}</p><dl class="project-facts"><div><dt>Role</dt><dd>${p.role}</dd></div><div><dt>Timeline</dt><dd>${p.timeline}</dd></div><div><dt>Tools</dt><dd>${p.tools}</dd></div></dl><img class="hero-cover" src="${p.cover}" alt="${p.title} cover placeholder"></section><section class="detail-section container"><p class="eyebrow">01 / OVERVIEW</p><div class="overview-grid"><div><h2>Problem</h2><p>${p.sections.overview.problem}</p></div><div><h2>Goal</h2><p>${p.sections.overview.goal}</p></div><div><h2>My Role</h2><p>${p.sections.overview.role}</p></div></div></section><section class="detail-section detail-split container"><div><p class="eyebrow">02 / RESEARCH</p><h2>Research</h2></div><p>${p.sections.research}</p></section><section class="detail-section container"><p class="eyebrow">03 / DESIGN PROCESS</p><div class="process-list">${p.sections.process.map((item, i) => `<div><span>0${i + 1}</span><h2>${item}</h2><p class="placeholder">[Content placeholder]</p></div>`).join("")}</div></section><section class="detail-section final-design container"><p class="eyebrow">04 / FINAL DESIGN</p><h2>Final Design</h2><div class="media-stack">${p.sections.finalDesign.map(media).join("")}</div></section><section class="detail-section reflection container"><p class="eyebrow">05 / REFLECTION</p><div class="overview-grid"><div><h2>What I Learned</h2><p>${p.sections.reflection.learned}</p></div><div><h2>Next Steps</h2><p>${p.sections.reflection.next}</p></div></div></section><a class="next-project container" href="project-detail.html?id=${next.id}"><span class="eyebrow">NEXT PROJECT</span><strong>${next.title} <span aria-hidden="true">→</span></strong></a>`;
     const detail = document.getElementById("project-detail");
