@@ -43,9 +43,6 @@
 .project-detail-page.project-02-detail .case-study-slides{padding-inline:clamp(22px,11.7vw,450px)}
 .project-detail-page .case-study-slide{position:relative;width:100%;max-width:3240px;margin:0 auto;padding:0;background:transparent;border:0;border-radius:0;box-shadow:none;line-height:0;isolation:isolate}
 .project-detail-page .case-study-slide + .case-study-slide{margin-top:8px}
-.project-detail-page .case-study-slide::before,.project-detail-page .case-study-slide::after{content:"";position:absolute;left:0;right:0;height:34px;z-index:1;pointer-events:none}
-.project-detail-page .case-study-slide::before{top:0;background:linear-gradient(180deg,rgba(13,21,34,.12) 0,rgba(13,21,34,.06) 42%,transparent 100%)}
-.project-detail-page .case-study-slide::after{bottom:0;background:linear-gradient(0deg,rgba(13,21,34,.12) 0,rgba(13,21,34,.05) 42%,transparent 100%)}
 .project-detail-page .case-study-slide img{display:block;width:100%;height:auto;max-width:none;margin:0;padding:0;border:0;border-radius:0;box-shadow:none;vertical-align:top}
 .project-detail-page .detail-header__back,.project-detail-page .detail-header__pager a{font-size:.88rem;color:rgba(235,239,247,.68)!important;transition:color .2s ease}
 .project-detail-page .detail-header__back:hover,.project-detail-page .detail-header__pager a:hover{color:rgba(245,247,252,.96)!important}
