@@ -32,7 +32,7 @@
 
 /* Keep the exports intact, but let them read as one continuous dark canvas. */
 .project-detail-page{background:#0d1522;color:var(--text)}
-.project-detail-page.project-02-detail{background-color:#edf3f7;background-image:url("../assets/projects/project-02/background.png?v=2");background-position:center top;background-repeat:no-repeat;background-size:cover;background-attachment:fixed}
+.project-detail-page.project-02-detail{background-color:#edf3f7;background-position:center top;background-repeat:no-repeat;background-size:cover;background-attachment:fixed}
 .project-detail-page .site-footer,.project-detail-page .project-detail,.project-detail-page .project-detail .container{width:100%;max-width:none;margin-inline:auto}
 .project-detail-page [data-site-nav]{position:fixed;top:0;left:0;right:0;z-index:20;display:block;pointer-events:none}
 .project-detail-page .site-nav,.project-detail-page .detail-header{position:relative;pointer-events:auto;border:0!important;border-bottom:0!important;outline:0;background:transparent!important;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:none!important}
@@ -40,6 +40,7 @@
 .detail-header__arrow{width:14px;height:14px;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.25}
 .project-detail-page .project-detail{margin-top:0;padding:0}
 .project-detail-page .case-study-slides{display:block;width:100%;margin:0;padding:48px clamp(48px,7.8125vw,300px) 0;box-sizing:border-box}
+.project-detail-page.project-02-detail .case-study-slides{padding-inline:clamp(22px,11.7vw,450px)}
 .project-detail-page .case-study-slide{position:relative;width:100%;max-width:3240px;margin:0 auto;padding:0;background:transparent;border:0;border-radius:0;box-shadow:none;line-height:0;isolation:isolate}
 .project-detail-page .case-study-slide + .case-study-slide{margin-top:8px}
 .project-detail-page .case-study-slide::before,.project-detail-page .case-study-slide::after{content:"";position:absolute;left:0;right:0;height:34px;z-index:1;pointer-events:none}
