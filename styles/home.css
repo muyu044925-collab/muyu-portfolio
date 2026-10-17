@@ -29,7 +29,6 @@
 .home-page .works .project-card:nth-child(2) .project-image,.home-page .works .project-card:nth-child(3) .project-image{position:relative}
 .home-page .works .project-card:nth-child(1) .project-image{background:#080c20 url("../assets/images/linguaflow-cover-bg.png") center/cover no-repeat}
 .home-page .works .project-card:nth-child(2) .project-image{background:#17334a url("../assets/images/twostep-cover-bg.png") center/cover no-repeat}
-.home-page .works .project-card:nth-child(1) .project-image img,.home-page .works .project-card:nth-child(2) .project-image img{display:none}
 .home-page .works .project-card:nth-child(3) .project-image img{opacity:0}
 .home-page .works .project-card:nth-child(3) .project-image{background:linear-gradient(135deg,#e7e3da,#bdb7ac);}
 .home-page .works .project-card:nth-child(3) .project-image::before{content:"";position:absolute;z-index:1;right:12%;top:12%;width:28%;height:70%;border-radius:8px;background:#f7f4ed;box-shadow:-78px 24px 0 -10px rgba(249,247,241,.9),-80px 26px 18px rgba(44,42,37,.12),0 15px 25px rgba(45,43,38,.2);transform:rotate(8deg)}
