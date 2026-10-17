@@ -32,7 +32,7 @@
 
 /* Keep the exports intact, but let them read as one continuous dark canvas. */
 .project-detail-page{background:#0d1522;color:var(--text)}
-.project-detail-page.project-02-detail{background-color:#fff;background-position:center top;background-repeat:no-repeat;background-size:cover;background-attachment:fixed}
+.project-detail-page.project-02-detail{background-color:#edf3f7;background-position:center top;background-repeat:no-repeat;background-size:cover;background-attachment:fixed}
 .project-detail-page .site-footer,.project-detail-page .project-detail,.project-detail-page .project-detail .container{width:100%;max-width:none;margin-inline:auto}
 .project-detail-page [data-site-nav]{position:fixed;top:0;left:0;right:0;z-index:20;display:block;pointer-events:none}
 .project-detail-page .site-nav,.project-detail-page .detail-header{position:relative;pointer-events:auto;border:0!important;border-bottom:0!important;outline:0;background:transparent!important;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:none!important}
